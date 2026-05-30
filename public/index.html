@@ -16,14 +16,11 @@
       <div class="sidebar-header">
         <div class="logo-area">
           <div class="logo-icon">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="24" cy="24" r="22" fill="#8B1A2B"/>
-              <text x="24" y="30" text-anchor="middle" fill="white" font-size="18" font-weight="bold" font-family="sans-serif">충</text>
-            </svg>
+            <img src="우왕이.png" alt="우왕이" class="logo-icon-img">
           </div>
           <div class="logo-text">
             <span class="logo-main">충피티</span>
-            <span class="logo-sub">ChungPTI</span>
+            <span class="logo-sub">ChungPT</span>
           </div>
         </div>
         <button class="sidebar-toggle" id="sidebarClose" aria-label="닫기">✕</button>
@@ -34,15 +31,42 @@
         새 대화 시작
       </button>
 
-      <nav class="sidebar-nav">
-        <p class="nav-label">빠른 질문</p>
-        <button class="quick-btn" data-msg="충북대학교 입학 전형은 어떻게 되나요?">📋 입학 안내</button>
-        <button class="quick-btn" data-msg="충북대학교 장학금 종류와 신청 방법을 알려주세요.">💰 장학금 정보</button>
-        <button class="quick-btn" data-msg="충북대학교 기숙사 신청 방법을 알려주세요.">🏠 기숙사 안내</button>
-        <button class="quick-btn" data-msg="충북대학교 주요 학과와 단과대학을 소개해주세요.">📚 학과 안내</button>
-        <button class="quick-btn" data-msg="충북대학교 캠퍼스 내 편의시설을 알려주세요.">🏫 캠퍼스 생활</button>
-        <button class="quick-btn" data-msg="충북대학교 취업 지원 서비스를 알려주세요.">💼 취업 지원</button>
-      </nav>
+      <!-- 의견 보내기 -->
+      <div class="feedback-section">
+        <p class="feedback-label">의견 보내기</p>
+        <form class="feedback-form" id="feedbackForm">
+          <textarea
+            class="feedback-input"
+            id="feedbackInput"
+            placeholder="충피티에 대한 의견을 자유롭게 남겨주세요..."
+            rows="4"
+            maxlength="500"
+          ></textarea>
+          <button type="submit" class="feedback-submit-btn" id="feedbackSubmitBtn">보내기</button>
+        </form>
+        <div class="feedback-success" id="feedbackSuccess">
+          감사합니다! 의견이 전달되었습니다 🙏
+        </div>
+      </div>
+
+      <!-- 사이드바 광고 -->
+      <div class="sidebar-ad">
+        <span class="ad-label">AD</span>
+        <a class="ad-item" href="#" target="_blank" rel="noopener noreferrer">
+          <span class="ad-item-icon">📢</span>
+          <div class="ad-item-text">
+            <span class="ad-item-title">충북대 소식</span>
+            <span class="ad-item-desc">2025 학생 창업 경진대회 접수 중 →</span>
+          </div>
+        </a>
+        <a class="ad-item" href="#" target="_blank" rel="noopener noreferrer">
+          <span class="ad-item-icon">☕</span>
+          <div class="ad-item-text">
+            <span class="ad-item-title">중문 카페</span>
+            <span class="ad-item-desc">학생증 제시 시 음료 10% 할인</span>
+          </div>
+        </a>
+      </div>
 
       <div class="sidebar-footer">
         <div class="cbnu-info">
@@ -61,13 +85,11 @@
           <span></span><span></span><span></span>
         </button>
         <div class="header-center">
+          <img src="충북대%20로고.png" alt="충북대 로고" class="header-cbnu-logo">
           <span class="header-title">충피티</span>
           <span class="header-badge">충북대학교 AI</span>
         </div>
-        <div class="header-status">
-          <span class="status-dot"></span>
-          <span>온라인</span>
-        </div>
+        <button class="info-btn" id="infoBtn" aria-label="이용안내">?</button>
       </header>
 
       <!-- Chat Messages -->
@@ -75,14 +97,29 @@
         <div class="welcome-screen" id="welcomeScreen">
           <div class="welcome-logo">
             <div class="big-logo-icon">
-              <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="40" cy="40" r="38" fill="#8B1A2B"/>
-                <circle cx="40" cy="40" r="34" fill="white" fill-opacity="0.08"/>
-                <text x="40" y="52" text-anchor="middle" fill="white" font-size="32" font-weight="bold" font-family="'Noto Sans KR', sans-serif">충</text>
-              </svg>
+              <img src="우왕이.png" alt="충피티" class="big-logo-img">
             </div>
             <h1 class="welcome-title">충피티에 오신 것을 환영합니다!</h1>
             <p class="welcome-subtitle">충북대학교 전용 AI 어시스턴트입니다.<br />학교 생활에 필요한 모든 것을 도와드립니다.</p>
+          </div>
+
+          <!-- 웰컴 광고 배너 -->
+          <div class="welcome-ad">
+            <a class="welcome-ad-item" href="#" target="_blank" rel="noopener noreferrer">
+              <span>📢</span>
+              <div class="welcome-ad-text">
+                <strong>충북대 소식</strong>
+                <span>2025 학생 창업 경진대회 접수 중 →</span>
+              </div>
+            </a>
+            <div class="welcome-ad-divider"></div>
+            <a class="welcome-ad-item" href="#" target="_blank" rel="noopener noreferrer">
+              <span>☕</span>
+              <div class="welcome-ad-text">
+                <strong>중문 카페</strong>
+                <span>학생증 제시 시 음료 10% 할인</span>
+              </div>
+            </a>
           </div>
 
           <div class="suggestion-grid">
@@ -133,6 +170,27 @@
       </footer>
 
     </main>
+  </div>
+
+  <!-- 이용안내 모달 -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">충피티 이용안내</h2>
+        <button class="modal-close" id="modalClose" aria-label="닫기">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-intro">충피티는 충북대학교 경영정보학과 학생들이 학과 수업 과제로 개발한 AI 챗봇입니다. 충북대학교의 공식 서비스가 아님을 안내드립니다.</p>
+        <p class="modal-section-title">이용 시 주의사항</p>
+        <ol class="modal-list">
+          <li>충피티는 AI 기반으로 동작하며, 부정확하거나 오래된 정보를 제공할 수 있습니다.</li>
+          <li>학사일정, 장학금, 수강신청 등 중요한 정보는 반드시 충북대학교 공식 포털(portal.chungbuk.ac.kr)에서 확인하세요.</li>
+          <li>충피티의 답변은 참고용으로만 활용하시고, 중요한 결정은 학교 공식 채널을 이용하세요.</li>
+          <li>주민등록번호 등 개인정보를 입력하지 마세요.</li>
+          <li>충북대학교 경영정보학과 학생들이 2026년 수업 과제로 제작하였습니다.</li>
+        </ol>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>

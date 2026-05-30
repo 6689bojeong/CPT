@@ -42,7 +42,7 @@ document.querySelectorAll('.quick-btn, .suggestion-card').forEach(btn => {
       messageInput.value = msg;
       messageInput.dispatchEvent(new Event('input'));
       sendMessage();
-      if (window.innerWidth <= 768) closeSidebar();
+      closeSidebar();
     }
   });
 });
@@ -50,7 +50,7 @@ document.querySelectorAll('.quick-btn, .suggestion-card').forEach(btn => {
 // ======== New chat ========
 newChatBtn.addEventListener('click', async () => {
   await clearConversation();
-  if (window.innerWidth <= 768) closeSidebar();
+  closeSidebar();
 });
 
 async function clearConversation() {
@@ -70,7 +70,12 @@ async function clearConversation() {
   sendBtn.disabled = true;
 }
 
-// ======== Sidebar (mobile) ========
+// ======== Sidebar ========
+const overlay = document.createElement('div');
+overlay.className = 'sidebar-overlay';
+overlay.addEventListener('click', closeSidebar);
+document.body.appendChild(overlay);
+
 sidebarOpen?.addEventListener('click', openSidebar);
 sidebarClose?.addEventListener('click', closeSidebar);
 
@@ -84,10 +89,34 @@ function closeSidebar() {
   overlay.classList.remove('visible');
 }
 
-const overlay = document.createElement('div');
-overlay.className = 'sidebar-overlay';
-overlay.addEventListener('click', closeSidebar);
-document.body.appendChild(overlay);
+// ======== 의견 보내기 ========
+const feedbackForm = document.getElementById('feedbackForm');
+const feedbackInput = document.getElementById('feedbackInput');
+const feedbackSubmitBtn = document.getElementById('feedbackSubmitBtn');
+const feedbackSuccess = document.getElementById('feedbackSuccess');
+
+feedbackForm?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const text = feedbackInput.value.trim();
+  if (!text) return;
+
+  feedbackSubmitBtn.disabled = true;
+  feedbackSubmitBtn.textContent = '전송 중...';
+
+  // TODO: Supabase 연결 후 실제 저장 로직으로 교체
+  await new Promise(r => setTimeout(r, 600));
+
+  feedbackForm.style.display = 'none';
+  feedbackSuccess.style.display = 'block';
+
+  setTimeout(() => {
+    feedbackForm.style.display = 'flex';
+    feedbackSuccess.style.display = 'none';
+    feedbackInput.value = '';
+    feedbackSubmitBtn.disabled = false;
+    feedbackSubmitBtn.textContent = '보내기';
+  }, 3000);
+});
 
 // ======== Send message ========
 async function sendMessage() {
@@ -139,7 +168,14 @@ function appendMessage(role, text, isError = false, sources = []) {
 
   const avatar = document.createElement('div');
   avatar.className = `avatar ${role}`;
-  avatar.textContent = role === 'bot' ? '충' : '나';
+  if (role === 'bot') {
+    const img = document.createElement('img');
+    img.src = '우왕이.png';
+    img.alt = '충피티';
+    avatar.appendChild(img);
+  } else {
+    avatar.textContent = '나';
+  }
 
   const bubbleWrapper = document.createElement('div');
   bubbleWrapper.className = 'message-bubble-wrapper';
@@ -202,7 +238,10 @@ function appendTypingIndicator() {
 
   const avatar = document.createElement('div');
   avatar.className = 'avatar bot';
-  avatar.textContent = '충';
+  const typingImg = document.createElement('img');
+  typingImg.src = '우왕이.png';
+  typingImg.alt = '충피티';
+  avatar.appendChild(typingImg);
 
   const bubbleWrapper = document.createElement('div');
   bubbleWrapper.className = 'message-bubble-wrapper';
@@ -251,6 +290,17 @@ function scrollToBottom() {
     chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
   }, 50);
 }
+
+// ======== 이용안내 모달 ========
+const infoBtn = document.getElementById('infoBtn');
+const modalOverlay = document.getElementById('modalOverlay');
+const modalClose = document.getElementById('modalClose');
+
+infoBtn?.addEventListener('click', () => modalOverlay.classList.add('visible'));
+modalClose?.addEventListener('click', () => modalOverlay.classList.remove('visible'));
+modalOverlay?.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) modalOverlay.classList.remove('visible');
+});
 
 // ======== Initial focus ========
 messageInput.focus();

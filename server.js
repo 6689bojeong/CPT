@@ -115,6 +115,10 @@ app.post('/api/clear', (req, res) => {
   res.json({ success: true });
 });
 
-app.listen(PORT, () => {
-  console.log(`충피티 서버가 http://localhost:${PORT} 에서 실행 중입니다`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`충피티 서버가 http://localhost:${PORT} 에서 실행 중입니다`);
+  });
+}
+
+module.exports = app;
